@@ -1,5 +1,7 @@
 # Testing Markdown
 
+<script type="text/javascript" src="https://dartpad.dev/inject_embed.dart.js" defer></script>
+
 ```run-dartpad:theme-light:mode-dart:run-true
 {$ begin main.dart $}
 void main() {
