@@ -20,3 +20,7 @@ void main() {
 }
 {$ end solution.dart $}
 ```
+
+```run-dartpad:theme-light:mode-flutter:run-true
+main() => print("Hello, World!");
+```
