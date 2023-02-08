@@ -2,27 +2,105 @@
 
 <script type="text/javascript" src="https://dartpad.dev/inject_embed.dart.js" defer></script>
 
-```run-dartpad:theme-light:mode-dart:run-true:width-80%:height-800px
+```run-dartpad:theme-dark:mode-flutter:run-true:width-80%:height-800px
 {$ begin main.dart $}
-void main() {
-  
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final stringProvider = StateProvider<String>((ref) => 'Hello world');
+
+void main() => runApp(ProviderScope(child: MyApp()));
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Riverpod Activity',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
+      body: Center(
+        child: Text(
+          '',
+        ),
+      ),
+    );
+  }
 }
 {$ end main.dart $}
 {$ begin solution.dart $}
-void main() {
-  List<int> list = [5, 20, 60, 42, 18, 90, 1];
-  
-  for (var i in list) {
-    if (i <= 20) {
-      print (i);
-    }
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final stringProvider = StateProvider<String>((ref) => 'Hello world');
+
+void main() => runApp(ProviderScope(child: MyApp()));
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Riverpod Activity',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomePage(),
+    );
   }
-  
-  print([for (var i in list) if (i <= 20) i]);
+}
+
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    TextEditingController stringController = TextEditingController();
+    final string = ref.watch(stringProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home Page'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(
+              string,
+            ),
+          ),
+          TextField(
+            decoration: const InputDecoration(labelText: 'Enter Text Here'),
+            controller: stringController,
+          ),
+          TextButton(
+            child: const Text('Submit'),
+            onPressed: () {
+              ref
+                  .read(stringProvider.notifier)
+                  .update((state) => stringController.text);
+              stringController.clear();
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
 {$ end solution.dart $}
-```
-
-```run-dartpad:theme-light:mode-flutter:run-true
-main() => print("Hello, World!");
 ```
